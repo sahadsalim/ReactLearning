@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ToDoItem from './ToDoItem';
 import { useSelector, useDispatch } from 'react-redux';
-import { addtodoitem, deltodoitem } from '../../redux/actions';
+import { addtodoitem } from '../../redux/actions';
 
 const ToDo = () => {
   const list = useSelector((state) => state.todo);
@@ -24,17 +24,19 @@ const ToDo = () => {
       return (<ToDoItem item={item} key={index} index={index} />)
     });
   return (
-    <div>
+    <div className="flex-1">
       <h2>Todo List</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" className="todo_text" onChange={(e) => {
+        <input type="text" className="todo_text text-lg" onChange={(e) => {
           setToDo(e.target.value);
         }} placeholder="Enter Items..." ref={inputItem} />
 
-        <button className="btn-Add">Add</button>
+        <button className="h-10 px-6 font-semibold rounded-md  text-white  bg-gray-800" type="submit">Add</button>
       </form>
       <hr />
-      {display}
+      <ul className="m-2">
+        {display}
+      </ul>
     </div>
   );
 }

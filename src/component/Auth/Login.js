@@ -1,21 +1,26 @@
-import { render } from 'react-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import {  login } from '../../redux/actions';
 
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link,
-  useRouteMatch,
-  useParams,
   useNavigate
 } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
 
 const Login=()=>{
   const pattern = /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/;
   let navigate  = useNavigate ();
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+
   localStorage.setItem('logged',false);
-  let userData=JSON.parse(localStorage.getItem('user'));
+  useEffect(() => {
+    if (auth.isLogged) {
+      localStorage.setItem('logged',true);
+      navigate("/home");
+    }
+
+  }, [auth,navigate])
   const [data, setData] = useState( {
     userName: '',
     password: '',
@@ -33,12 +38,13 @@ const passwordChange=(event)=>{
 }
 const  handleSubmit=(event)=> {
   event.preventDefault();
-  if(pattern.test(data?.password) && userData?.password==data?.password &&userData?.email==data?.userName){
+  if(pattern.test(data?.password) ){
     console.log("form has been submitted: ");
-    console.log(data.userName);
-    setData({...data,error:'',submitted:true});
-    localStorage.setItem('logged',false);
-    navigate("/home");
+    dispatch(
+      login(data),
+    );
+
+
   }else{
     setData({...data,error:'8-20 Letters and digits',submitted:true});
   }
@@ -52,13 +58,13 @@ return(
       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
         Username
       </label>
-      <input type="text" value={data.userName} onChange={userNameChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username"/>
+      <input  value={data.userName} onChange={userNameChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Username"/>
     </div>
     <div className="mb-6">
       <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
         Password
       </label>
-      <input type="text" value={data.password} onChange={passwordChange} className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************"/>
+      <input  value={data.password} onChange={passwordChange} className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************"/>
       {data.submitted && data.error ? <p className="text-red-500 text-xs italic">Invalid credentials.</p>:null}
     </div>
     <div className="flex items-center justify-between">

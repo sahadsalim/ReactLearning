@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import { deltodoitem } from '../../redux/actions';
 
 const ToDoItem = (props) => {
@@ -15,15 +15,13 @@ const ToDoItem = (props) => {
     }
   }
   return (
-    <ul className="m-2">
-      <li>
+      <li className="flex items-center justify-between">
         <input type="checkbox" onChange={handleChecked} />
-        <span className={state.checked ? "checked" : ""}>{item.text}</span>
+        <span className={state.checked ? "checked capitalize" : "capitalize"}>{item.text}</span>
         <button className="rounded-md bg-red-500 p-2" onClick={() => {
               dispatch(deltodoitem(index));
             }}>X</button>
       </li>
-    </ul>
   );
 }
 export default ToDoItem;

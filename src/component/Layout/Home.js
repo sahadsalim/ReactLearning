@@ -1,13 +1,17 @@
-import { render } from 'react-dom';
-import {UserContextConsumer} from '../Auth/userContext';
-
+import { useSelector } from 'react-redux';
+import { Fragment } from "react";
 import ToDo from "../Todo/ToDo";
+import Api from "../Rest/Api";
 const Home=()=>{
-  let data=localStorage.getItem('user');
+  const auth = useSelector((state) => state.auth);
      return (
-       <div>
-       <ToDo></ToDo>
+       <Fragment>
+       {auth.isLogged?<div className='flex'>
+        <ToDo ></ToDo>
+        <Api ></Api>
        </div>
-     );
+       :<p>Please login see data.</p>}
+       </Fragment>
+    );
 }
 export default Home;

@@ -1,24 +1,10 @@
 import {Fragment} from 'react';
-import mealsImage from '../../assets/meals.jpg';
-import classes from './Header.module.css';
 import React, { useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams,
-  useNavigate
-} from "react-router-dom";
 const Header=props=>{
   const [isSettings,setSettings]=useState(false);
   const clickProfile=()=>{
     setSettings(!isSettings);
   }
-  // const login=()=>{
-  //   navigate("/login");
-  // }
   return <Fragment>
     <nav className="bg-gray-800">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -55,8 +41,8 @@ const Header=props=>{
 
 
               {isSettings?<div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</a>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1">Settings</a>
+                {/* <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">Your Profile</a>
+                <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1">Settings</a> */}
                 <a href="/login"  className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">Sign out</a>
               </div>:null}
             </div>

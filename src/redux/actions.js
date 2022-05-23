@@ -13,4 +13,17 @@ const deltodoitem = (id) => {
     };
 };
 
-export {addtodoitem,deltodoitem};
+const login=(item)=>{
+    return{
+    type: "LOGIN",
+    payload : item,
+    };
+};
+const signup=(item)=>{
+    return{
+    type: "SIGN_UP",
+    payload : item,
+    };
+};
+
+export {addtodoitem,deltodoitem,login,signup};

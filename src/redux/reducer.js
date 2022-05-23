@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-const todoreducer = (state = [], action) => {
+const todoReducer = (state = [], action) => {
   if (action.type === 'ADD_TODO') {
     console.log(action);
     return [...state, action.payload];
@@ -11,7 +11,38 @@ const todoreducer = (state = [], action) => {
 
   return state;
 };
+const authReducer=(state={isLogged:false},action)=>{
+  if(action.payload){
+  let user=localStorage.getItem('users');
+  const userList=JSON.parse(user) || [];
+  const validUser=userList?.find(m=>m.email===action.payload.userName && m.password===action.payload.password);
+  const existingUser=userList?.find(m=>m.email===action.payload.email);
+  switch (action.type) {
+    case 'LOGIN':
+      console.log(action.payload);
+      if (validUser) {
+        console.log("login successful");
+        state={...state,isLogged:true}
+      }
+      break;
+    case 'SIGN_UP':
+      if (!existingUser) {
+        console.log("signed up successful");
+
+        let userData=JSON.stringify(userList?userList.push(action.payload):[action.payload]);
+        localStorage.setItem('users',userData);
+      }
+      break;
+    default:
+      break;
+  }
+}
+
+  return state;  
+
+}
 const rootReducer = combineReducers({
-    todo : todoreducer,
+    todo : todoReducer,
+    auth : authReducer
 })
 export default rootReducer;
