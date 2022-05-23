@@ -1,11 +1,9 @@
-import { render } from "react-dom";
 import React, { useState } from "react";
 import { signup } from "../../redux/actions";
-import { useSelector, useDispatch } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
 import {
-  BrowserRouter as Router,
-  useNavigate,
+  Link,
+  useNavigate
 } from "react-router-dom";
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -27,31 +25,16 @@ const SignUp = () => {
   const lastNameChange = (event) => {
     setData({ ...data, lastName: event.target.value });
   };
-
   const emailChange = (event) => {
     setData({ ...data, email: event.target.value });
   };
   const passwordChange = (event) => {
-    // if(event.target.value.length>7){
     setData({ ...data, password: event.target.value });
-    // }
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (pattern.test(data.password)) {
-      console.log("form has been submitted: ");
-      console.log(
-        data.firstName +
-          " - " +
-          data.lastName +
-          " - " +
-          data.email +
-          " - " +
-          data.contact
-      );
       setData({ ...data, error: "" });
-      // localStorage.setItem("user", JSON.stringify(data));
       dispatch(
         signup(data),
       );
@@ -79,7 +62,6 @@ const SignUp = () => {
             onChange={firstNameChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
-            type="text"
             placeholder="Username"
           />
         </div>
@@ -96,7 +78,6 @@ const SignUp = () => {
             onChange={lastNameChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
-            type="text"
             placeholder="Username"
           />
         </div>
@@ -113,7 +94,6 @@ const SignUp = () => {
             onChange={emailChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="username"
-            type="text"
             placeholder="Username"
           />
         </div>
@@ -125,7 +105,6 @@ const SignUp = () => {
             Password
           </label>
           <input
-            type="text"
             value={data.password}
             onChange={passwordChange}
             className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -140,7 +119,6 @@ const SignUp = () => {
           ) : null}
         </div>
         <p>{data.error}</p>
-        <p>{JSON.stringify(data)}</p>
         <div className="flex items-center justify-between">
           <button
             type="submit"
@@ -148,6 +126,9 @@ const SignUp = () => {
           >
             Save
           </button>
+          <Link to="/login" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" >
+            Login
+          </Link>
         </div>
       </form>
     </div>

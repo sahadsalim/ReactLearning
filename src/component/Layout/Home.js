@@ -10,7 +10,7 @@ const Home=()=>{
         <ToDo ></ToDo>
         <Api ></Api>
        </div>
-       :<p>Please login see data.</p>}
+       :<h4 className='text-center'>Please login see data. <a className='text-blue-500' href='/login'>Click here to Login</a></h4>}
        </Fragment>
     );
 }
