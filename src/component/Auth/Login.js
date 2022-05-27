@@ -29,7 +29,6 @@ const Login=()=>{
    setData({...data,
      userName: event.target.value
    });
-   console.log(event.target.value);
  };
 const passwordChange=(event)=>{
   setData({...data,password:event.target.value});
@@ -37,12 +36,9 @@ const passwordChange=(event)=>{
 const  handleSubmit=(event)=> {
   event.preventDefault();
   if(pattern.test(data?.password) ){
-    console.log("form has been submitted: ");
     dispatch(
       login(data),
     );
-
-
   }else{
     setData({...data,error:'8-20 Letters and digits',submitted:true});
   }

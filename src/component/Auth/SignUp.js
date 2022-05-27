@@ -19,7 +19,6 @@ const SignUp = () => {
 
   const firstNameChange = (event) => {
     setData({ ...data, firstName: event.target.value });
-    console.log(event.target.value);
   };
 
   const lastNameChange = (event) => {

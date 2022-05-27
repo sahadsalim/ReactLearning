@@ -1,11 +1,9 @@
 import { combineReducers } from "redux";
 const todoReducer = (state = [], action) => {
   if (action.type === 'ADD_TODO') {
-    console.log(action);
     return [...state, action.payload];
   }
   if (action.type === 'DELETE_TODO') {
-    console.log(action);
     return state.filter((item, index) => index !== action.payload);
   }
 
@@ -19,16 +17,12 @@ const authReducer=(state={isLogged:false},action)=>{
   const existingUser=userList?.find(m=>m.email===action.payload.email);
   switch (action.type) {
     case 'LOGIN':
-      console.log(action.payload);
       if (validUser) {
-        console.log("login successful");
         state={...state,isLogged:true}
       }
       break;
     case 'SIGN_UP':
       if (!existingUser) {
-        console.log("signed up successful");
-
         let userData=JSON.stringify(userList?userList.push(action.payload):[action.payload]);
         localStorage.setItem('users',userData);
       }
